@@ -232,3 +232,4 @@ class Vehicle {
     //if (location.y > height+r) location.y = -r;
   }
 }
+}
