@@ -57,30 +57,32 @@ class Sensor {
     //instruction
     tmpLength = sensorLength / 2; // distance dx du centre par rapport au debut du capteur.
     tmpWidth = sensorWidth / 2; //distance dy du centre par rapport au debut du capteur.
-
-    // reflexion a faire sur comment faire le multiligne du capteur
-    tmpIndex = (sensorX - tmpLength) + ((sensorY - tmpWidth)* sensorPath.width); //Premier pixel du capteur sur le circuit.
-    tmpColor = sensorPath.pixels[tmpIndex]; //on recupere la valeur du pixel
-
-    //traitement de l'information
-    if (tmpColor == BLACK) {
-      sensorRead.append(100);
-    }
-    if (tmpColor == WHITE) {
-      sensorRead.append(0);
+    //lecture du capteur
+    for (int i = 0; i < sensorWidth; i++) {
+      for (int j = 0; y < sensorLength; y++) {
+        tmpIndex = (sensorX - tmpLength + y) + ((sensorY - tmpWidth + i)* sensorPath.width); //Premier pixel du capteur sur le circuit.
+        tmpColor = sensorPath.pixels[tmpIndex]; //on recupere la valeur du pixel
+        //traitement de l'information
+        if (tmpColor == BLACK) {
+          sensorRead.append(100);
+        }
+        if (tmpColor == WHITE) {
+          sensorRead.append(0);
+        }
+      }
     }
     //Calcule de la somme des valeurs des pixels
-    for (int i = 5; i < sensorRead.size (); i += 5) {
+    for (int i = 0; i < sensorRead.size (); i++) {
       sum = sensorRead.index(i);
     }
     sensorValue = sum / sensorRead.size(); //calcule de la valeur moyenne de lecture
     return sensorValue;
   }
-  
+
   //Methode dessin du capteur
-  void sensorDisplay(){
+  void sensorDisplay() {
     noStroke(RED);
     fill(255, 204, 51);
     rectMode(CENTER); //positionement par le centre
     rect(sensorX, sensorY, sensorLength, sensorWidth);
-}
+  }
