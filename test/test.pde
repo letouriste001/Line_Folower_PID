@@ -3,7 +3,7 @@ PImage test;
 
 void setup() {
   size(50, 50);
-  //smooth();
+  smooth();
 
   test = loadImage("testCapteur.png");
   image(test, 0, 0);
@@ -16,13 +16,19 @@ void newSensor() {
   capteur.setSensorResolution(10, 2);
 }
 
-void moveSensor(){
+void moveSensor() {
   int x = 0;
   int y = 0;
-  x = 1 + capteur.
-  capteur.setSensorPosition(x,y);
+  PVector tmpPosition;
+  tmpPosition = capteur.getSensorPosition();
+  x = 1 + int(tmpPosition.x);
+  y = int(tmpPosition.y);
+  capteur.setSensorPosition(x, y);
 }
 
-void draw(){
+void draw() {
   capteur.sensorRender();
+}
+void keyPressed(){
+  moveSensor();
 }

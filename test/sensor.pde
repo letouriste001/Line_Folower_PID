@@ -12,8 +12,6 @@ class Sensor {
   //variable
   PImage sensorPath;
   PVector sensorPosition;
-  //int sensorX;
-  //int sensorY;
   int sensorLength;
   int sensorWidth;
   //ArrayList<pixels> sensorRead;
@@ -24,8 +22,6 @@ class Sensor {
 
   Sensor(PImage path) {
     sensorPath = path; //mise en memoire sur circuit
-    //sensorX = 1; //attribution arbitraire d'une position du centre sur x
-    //sensorY = 1; //attribution arbitraire d'une position du centre sur y
     sensorPosition = new PVector(1,1);
     sensorLength = 1; //attribution arbitraire d'une longeur de capteur
     sensorWidth = 1; //attribution arbitraire d'une largeur de capteur
@@ -36,8 +32,6 @@ class Sensor {
 
   //set position
   void setSensorPosition(int posX, int posY) {
-    //sensorX = posX;
-    //sensorY = posY;
     sensorPosition.set(posX,posY);
   }
   //set Resolution
@@ -45,6 +39,7 @@ class Sensor {
     sensorLength = sLength;
     sensorWidth = sWidth;
   }
+  
   //Méthodes Get
 
   //get position
@@ -68,7 +63,7 @@ class Sensor {
     //lecture du capteur
     for (int i = 0; i < sensorWidth; i++) {
       for (int j = 0; j < sensorLength; j++) {
-        tmpIndex = (sensorX - tmpLength + j) + ((sensorY - tmpWidth + i)* sensorPath.width); //Premier pixel du capteur sur le circuit.
+        tmpIndex = (int(sensorPosition.x)- tmpLength + j) + ((int(sensorPosition.y)- tmpWidth + i)* sensorPath.width); //Premier pixel du capteur sur le circuit.
         tmpColor = sensorPath.pixels[tmpIndex]; //on recupere la valeur du pixel
         //traitement de l'information
         if (tmpColor == BLACK) {
@@ -90,9 +85,13 @@ class Sensor {
   //Methode dessin du capteur
   void sensorRender() {
     //integration future de pushmatrix et popmatrix
-    noStroke();
     fill(RED);
+    stroke(0);
     rectMode(CENTER); //positionement par le centre
-    rect(sensorPosition.x, sensorPosition.y, sensorLength, sensorWidth);
+    pushMatrix();
+    translate(sensorPosition.x,sensorPosition.y);
+    rect(0,0, sensorLength, sensorWidth);
+    popMatrix();
+    
   }
 }
