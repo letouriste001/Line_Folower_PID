@@ -80,7 +80,7 @@ class Sensor {
   }
 
   //Methode dessin du capteur
-  void sensorDisplay() {
+  void sensorRender() {
     noStroke(RED);
     fill(255, 204, 51);
     rectMode(CENTER); //positionement par le centre
