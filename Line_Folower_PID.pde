@@ -11,23 +11,19 @@ boolean debug = false;
 // A path object (series of connected points)
 Path path;
 
-//parametre
-
-Parametre toto;
-
 // Two vehicles
 ArrayList<Vehicle> vehicles;
 
 void setup() {
-  size(720,200);
+  size(720, 200);
   smooth();
   // Call a function to generate new Path object
   newPath();
-  toto = new Parametre();
+
   // We are now making random vehicles and storing them in an ArrayList
   vehicles = new ArrayList<Vehicle>();
   for (int i = 0; i < 1; i++) {
-    newVehicle(random(width),random(height));
+    newVehicle(random(width), random(height));
   }
 }
 
@@ -38,7 +34,7 @@ void draw() {
 
   for (Vehicle v : vehicles) {
     // Path following and separation are worked on in this function
-    v.applyBehaviors(vehicles,path);
+    v.applyBehaviors(vehicles, path);
     // Call the generic run method (update, borders, display, etc.)
     v.run();
   }
@@ -46,7 +42,7 @@ void draw() {
   // Instructions
   fill(0);
   textAlign(CENTER);
-  text("Hit 'd' to toggle debugging lines.\nClick the mouse to generate new vehicles.",width/2,height-20);
+  text("Hit 'd' to toggle debugging lines.\nClick the mouse to generate new vehicles.", width/2, height-20);
 }
 
 void newPath() {
@@ -54,17 +50,17 @@ void newPath() {
   // A more sophisticated path might be a curve
   path = new Path();
   float offset = 30;
-  path.addPoint(offset,offset);
-  path.addPoint(width-offset,offset);
-  path.addPoint(width-offset,height-offset);
-  path.addPoint(width/2,height-offset*3);
-  path.addPoint(offset,height-offset);
+  path.addPoint(offset, offset);
+  path.addPoint(width-offset, offset);
+  path.addPoint(width-offset, height-offset);
+  path.addPoint(width/2, height-offset*3);
+  path.addPoint(offset, height-offset);
 }
 
 void newVehicle(float x, float y) {
-  float maxspeed = random(2,4);
+  float maxspeed = random(2, 4);
   float maxforce = 0.3;
-  vehicles.add(new Vehicle(new PVector(x,y),maxspeed,maxforce));
+  vehicles.add(new Vehicle(new PVector(x, y), maxspeed, maxforce));
 }
 
 void keyPressed() {
@@ -74,5 +70,5 @@ void keyPressed() {
 }
 
 void mousePressed() {
-  newVehicle(mouseX,mouseY);
+  newVehicle(mouseX, mouseY);
 }

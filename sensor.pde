@@ -2,15 +2,14 @@
 // @bref : inspirate by the nature of code writen by Daniel Shiffman <http://www.shiffman.net> and NXT line folower by LEGO.
 // @description : Virtual light sensor for simulation of line folower
 
-//definition de constante
-final color BLACK = #000000;
-final color WHITE = #FFFFFF;
-final color RED = #FF0000;
-
-//class
-
 class Sensor {
 
+  //definition de constante
+  final color BLACK = #000000;
+  final color WHITE = #FFFFFF;
+  final color RED = #FF0000;
+
+  //variable
   PImage sensorPath;
   int sensorX;
   int sensorY;
@@ -59,8 +58,8 @@ class Sensor {
     tmpWidth = sensorWidth / 2; //distance dy du centre par rapport au debut du capteur.
     //lecture du capteur
     for (int i = 0; i < sensorWidth; i++) {
-      for (int j = 0; y < sensorLength; y++) {
-        tmpIndex = (sensorX - tmpLength + y) + ((sensorY - tmpWidth + i)* sensorPath.width); //Premier pixel du capteur sur le circuit.
+      for (int j = 0; j < sensorLength; j++) {
+        tmpIndex = (sensorX - tmpLength + j) + ((sensorY - tmpWidth + i)* sensorPath.width); //Premier pixel du capteur sur le circuit.
         tmpColor = sensorPath.pixels[tmpIndex]; //on recupere la valeur du pixel
         //traitement de l'information
         if (tmpColor == BLACK) {
@@ -82,8 +81,9 @@ class Sensor {
   //Methode dessin du capteur
   void sensorRender() {
     //integration future de pushmatrix et popmatrix
-    noStroke(RED);
-    fill(255, 204, 51);
+    noStroke();
+    fill(RED);
     rectMode(CENTER); //positionement par le centre
     rect(sensorX, sensorY, sensorLength, sensorWidth);
   }
+}

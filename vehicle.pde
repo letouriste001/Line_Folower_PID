@@ -70,7 +70,7 @@ class Vehicle {
     float worldRecord = 1000000;  // Start with a very high worldRecord distance that can easily be beaten
 
     // Loop through all points of the path
-    for (int i = 0; i < p.points.size(); i++) {
+    for (int i = 0; i < p.points.size (); i++) {
 
       // Look at a line segment
       PVector a = p.points.get(i);
@@ -83,7 +83,7 @@ class Vehicle {
       PVector dir = PVector.sub(b, a);
       // If it's not within the line segment, consider the normal to just be the end of the line segment (point b)
       //if (da + db > line.mag()+1) {
-      if (normalPoint.x < min(a.x,b.x) || normalPoint.x > max(a.x,b.x) || normalPoint.y < min(a.y,b.y) || normalPoint.y > max(a.y,b.y)) {
+      if (normalPoint.x < min(a.x, b.x) || normalPoint.x > max(a.x, b.x) || normalPoint.y < min(a.y, b.y) || normalPoint.y > max(a.y, b.y)) {
         normalPoint = b.get();
         // If we're at the end we really want the next line segment for looking ahead
         a = p.points.get((i+1)%p.points.size());
@@ -97,7 +97,7 @@ class Vehicle {
       if (d < worldRecord) {
         worldRecord = d;
         normal = normalPoint;
-        
+
         // Look at the direction of the line segment so we can seek a little bit ahead of the normal
         dir.normalize();
         // This is an oversimplification
@@ -105,7 +105,6 @@ class Vehicle {
         dir.mult(25);
         target = normal.get();
         target.add(dir);
-        
       }
     }
 
@@ -131,8 +130,7 @@ class Vehicle {
     // Only if the distance is greater than the path's radius do we bother to steer
     if (worldRecord > p.radius) {
       return seek(target);
-    } 
-    else {
+    } else {
       return new PVector(0, 0);
     }
   }
@@ -159,7 +157,7 @@ class Vehicle {
     PVector steer = new PVector(0, 0, 0);
     int count = 0;
     // For every boid in the system, check if it's too close
-    for (int i = 0 ; i < boids.size(); i++) {
+    for (int i = 0; i < boids.size (); i++) {
       Vehicle other = (Vehicle) boids.get(i);
       float d = PVector.dist(location, other.location);
       // If the distance is greater than 0 and less than an arbitrary amount (0 when you are yourself)
@@ -234,6 +232,3 @@ class Vehicle {
     //if (location.y > height+r) location.y = -r;
   }
 }
-
-
-
