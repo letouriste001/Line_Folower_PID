@@ -81,6 +81,7 @@ class Sensor {
 
   //Methode dessin du capteur
   void sensorRender() {
+    //integration future de pushmatrix et popmatrix
     noStroke(RED);
     fill(255, 204, 51);
     rectMode(CENTER); //positionement par le centre
