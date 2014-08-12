@@ -43,21 +43,24 @@ class Sensor {
     sensorWidth = sWidth;
   }
   
-  //je sais pas encore
-  
+  //Lecture du capteur  
   float ReadValue(){
+    
     //variable temporaire
     int tmpLength;
     int tmpWidth;
     int tmpIndex;
     color tmpColor;
+    int sum;
     
     //instruction
     tmpLength = sensorLength / 2; // distance dx du centre par rapport au debut du capteur.
     tmpWidth = sensorWidth / 2; //distance dy du centre par rapport au debut du capteur.
-    tmpIndex = (sensorX - tmpLength) + ((sensorY - tmpWidth)* sensorPath.width); //Premier pixel du capteur sur le circuit.
+    
     // reflexion a faire sur comment faire le multiligne du capteur
+    tmpIndex = (sensorX - tmpLength) + ((sensorY - tmpWidth)* sensorPath.width); //Premier pixel du capteur sur le circuit.
     tmpColor = sensorPath.pixels[tmpIndex]; //on recupere la valeur du pixel
+    
     //traitement de l'information
     if (tmpColor == BLACK){
       sensorRead.append(100);
@@ -65,6 +68,10 @@ class Sensor {
     if (tmpColor == WHITE){
       sensorRead.append(0);
     }
-    
+    //Calcule de la somme des valeurs des pixels
+    for(int i = 5; i < sensorRead.size(); i += 5){
+      sum = sensorRead.index(i);
   }
+  sensorValue = sum / sensorRead.size(); //calcule de la valeur moyenne de lecture
+  return sensorValue;
 }
