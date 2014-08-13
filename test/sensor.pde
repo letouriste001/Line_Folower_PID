@@ -22,7 +22,7 @@ class Sensor {
 
   Sensor(PImage path) {
     sensorPath = path; //mise en memoire sur circuit
-    sensorPosition = new PVector(1,1);
+    sensorPosition = new PVector(1, 1);
     sensorLength = 1; //attribution arbitraire d'une longeur de capteur
     sensorWidth = 1; //attribution arbitraire d'une largeur de capteur
     //sensorRead = new ArrayList<pixels>(); //liste de pixel lu
@@ -32,18 +32,18 @@ class Sensor {
 
   //set position
   void setSensorPosition(int posX, int posY) {
-    sensorPosition.set(posX,posY);
+    sensorPosition.set(posX, posY);
   }
   //set Resolution
   void setSensorResolution(int sLength, int sWidth) {
     sensorLength = sLength;
     sensorWidth = sWidth;
   }
-  
+
   //Méthodes Get
 
   //get position
-  PVector getSensorPosition(){
+  PVector getSensorPosition() {
     return sensorPosition;
   }
 
@@ -66,7 +66,7 @@ class Sensor {
         tmpIndex = (int(sensorPosition.x)- tmpLength + j) + ((int(sensorPosition.y)- tmpWidth + i)* sensorPath.width); //Premier pixel du capteur sur le circuit.
         tmpColor = sensorPath.pixels[tmpIndex]; //on recupere la valeur du pixel
         //traitement de l'information
-        if (tmpColor == BLACK) {
+        if ((tmpColor == BLACK) || (tmpColor != WHITE)) {
           sensorRead.append(100);
         }
         if (tmpColor == WHITE) {
@@ -88,10 +88,9 @@ class Sensor {
     fill(RED);
     stroke(0);
     pushMatrix();
-    translate(sensorPosition.x,sensorPosition.y);
+    translate(sensorPosition.x, sensorPosition.y);
     rectMode(CENTER); //positionement par le centre
-    rect(0,0, sensorLength, sensorWidth);
+    rect(0, 0, sensorLength, sensorWidth);
     popMatrix();
-    
   }
 }
