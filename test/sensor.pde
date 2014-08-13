@@ -70,7 +70,7 @@ class Sensor {
           sensorRead.append(100);
         }
         if (tmpColor == WHITE) {
-          sensorRead.append(0);
+          sensorRead.append(0); // erreur de type nullpointer exeption ????
         }
       }
     }
@@ -87,9 +87,9 @@ class Sensor {
     //integration future de pushmatrix et popmatrix
     fill(RED);
     stroke(0);
-    rectMode(CENTER); //positionement par le centre
     pushMatrix();
     translate(sensorPosition.x,sensorPosition.y);
+    rectMode(CENTER); //positionement par le centre
     rect(0,0, sensorLength, sensorWidth);
     popMatrix();
     

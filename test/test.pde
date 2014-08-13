@@ -1,3 +1,7 @@
+// ne pas oublier le rapel de l'image a chque mouvement
+
+
+
 Sensor capteur;
 PImage test;
 
@@ -28,7 +32,18 @@ void moveSensor() {
 
 void draw() {
   capteur.sensorRender();
+  ValeurCapteur();
 }
-void keyPressed(){
+void keyPressed() {
   moveSensor();
+  imageDisplay();
+}
+void imageDisplay() {
+  image(test, 0, 0);
+}
+void ValeurCapteur() {
+  float valeur;
+  String text = "la valeur du capteur est :";
+  valeur = capteur.ReadValue();
+  print(text, valeur);
 }
