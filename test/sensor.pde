@@ -11,86 +11,55 @@ class Sensor {
 
   //variable
   PImage sensorPath;
-  PVector sensorPosition;
-  int sensorLength;
+  PVector sensorOffsetPosition;
   int sensorWidth;
+  int sensorHeight;
   //ArrayList<pixels> sensorRead;
   IntList sensorRead;
   float sensorValue;
 
   //Constructeur
 
-  Sensor(PImage path) {
+  Sensor(PImage path, int offsetPosX, int offsetPosY, int sWidth, int sHeight ) {
     sensorPath = path; //mise en memoire sur circuit
-    sensorPosition = new PVector(1, 1);
-    sensorLength = 1; //attribution arbitraire d'une longeur de capteur
-    sensorWidth = 1; //attribution arbitraire d'une largeur de capteur
+    sensorOffsetPosition = new PVector(offsetPosX, offsetPosY);
+    sensorWidth = sWidth; //attribution arbitraire d'une longeur de capteur
+    sensorHeight = sHeight; //attribution arbitraire d'une largeur de capteur
     //sensorRead = new ArrayList<pixels>(); //liste de pixel lu
   }
 
-  //Méthodes Set
-
-  //set position
-  void setSensorPosition(int posX, int posY) {
-    sensorPosition.set(posX, posY);
-  }
-  //set Resolution
-  void setSensorResolution(int sLength, int sWidth) {
-    sensorLength = sLength;
-    sensorWidth = sWidth;
-  }
-
-  //Méthodes Get
-
-  //get position
-  PVector getSensorPosition() {
-    return sensorPosition;
-  }
-
   //Lecture du capteur  
-  float ReadValue() {
-
+  float readValue(PVector vehiculeSensorPosition) {
     //variable temporaire
-    int tmpLength = 0;
     int tmpWidth = 0;
+    int tmpHeight = 0;
     int tmpIndex = 0;
     color tmpColor;
-    int sum = 0; //init de la variable pour corriger un bug sur la ligne sensorValue = sum / sensorRead.size();
 
     //instruction
-    tmpLength = sensorLength / 2; // distance dx du centre par rapport au debut du capteur.
-    tmpWidth = sensorWidth / 2; //distance dy du centre par rapport au debut du capteur.
+    tmpWidth = sensorWidth / 2; // distance dx du centre par rapport au debut du capteur.
+    tmpHeight = sensorHeight / 2; //distance dy du centre par rapport au debut du capteur.
     //lecture du capteur
-    for (int i = 0; i < sensorWidth; i++) {
-      for (int j = 0; j < sensorLength; j++) {
-        tmpIndex = (int(sensorPosition.x)- tmpLength + j) + ((int(sensorPosition.y)- tmpWidth + i)* sensorPath.width); //Premier pixel du capteur sur le circuit.
+    double sumColors = 0.0;
+    for (int i = 0; i < sensorHeight; i++) {
+      for (int j = 0; j < sensorWidth; j++) {
+        tmpIndex = (int(vehiculeSensorPosition.x)- tmpWidth + j) + ((int(vehiculeSensorPosition.y)- tmpHeight + i)* sensorPath.width); //Premier pixel du capteur sur le circuit.
         tmpColor = sensorPath.pixels[tmpIndex]; //on recupere la valeur du pixel
-        //traitement de l'information
-        if ((tmpColor == BLACK) || (tmpColor != WHITE)) {
-          sensorRead.append(100);
-        }
-        if (tmpColor == WHITE) {
-          sensorRead.append(0); // erreur de type nullpointer exeption ????
-        }
+        sumColors += (blue(tmpColor) + red(tmpColor) + green(tmpColor)) / (255 * 3.0);
       }
     }
-    //Calcule de la somme des valeurs des pixels
-    for (int i = 0; i < sensorRead.size (); i++) {
-      sum = sensorRead.index(i);
-    }
-    sensorValue = sum / sensorRead.size(); //calcule de la valeur moyenne de lecture
-    return sensorValue;
+    return (float)(1.0 - sumColors / (sensorHeight * sensorWidth));
   }
 
   //Methode dessin du capteur
-  void sensorRender() {
-    //integration future de pushmatrix et popmatrix
+  //void sensorRender(){
+  void sensorRender(PVector vehiculeSensorPosition) { //pour tester le capteur
     fill(RED);
     stroke(0);
     pushMatrix();
-    translate(sensorPosition.x, sensorPosition.y);
+    translate(vehiculeSensorPosition.x, vehiculeSensorPosition.y); //translation pour les test
     rectMode(CENTER); //positionement par le centre
-    rect(0, 0, sensorLength, sensorWidth);
+    rect(0, 0, sensorWidth, sensorHeight);
     popMatrix();
   }
 }
