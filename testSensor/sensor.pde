@@ -5,8 +5,6 @@
 class Sensor {
 
   //definition de constante
-  final color BLACK = #000000;
-  final color WHITE = #FFFFFF;
   final color RED = #FF0000;
 
   //variable
@@ -14,22 +12,20 @@ class Sensor {
   PVector sensorOffsetPosition;
   int sensorWidth;
   int sensorHeight;
-  //ArrayList<pixels> sensorRead;
   IntList sensorRead;
   float sensorValue;
 
   //Constructeur
-
-  Sensor(PImage path, int offsetPosX, int offsetPosY, int sWidth, int sHeight ) {
+  Sensor(PImage path, PVector offsetPosition, int sWidth, int sHeight ) {
     sensorPath = path; //mise en memoire sur circuit
-    sensorOffsetPosition = new PVector(offsetPosX, offsetPosY);
+    sensorOffsetPosition = offsetPosition;
     sensorWidth = sWidth; //attribution arbitraire d'une longeur de capteur
     sensorHeight = sHeight; //attribution arbitraire d'une largeur de capteur
-    //sensorRead = new ArrayList<pixels>(); //liste de pixel lu
   }
 
   //Lecture du capteur  
   float readValue(PVector vehiculeSensorPosition) {
+    
     //variable temporaire
     int tmpWidth = 0;
     int tmpHeight = 0;
