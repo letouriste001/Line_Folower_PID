@@ -54,8 +54,8 @@ class Sensor {
     fill(RED);
     stroke(0);
     pushMatrix();
-    translate(offsetPosition.x, offsetPosition.y);
-    translate(vehiculeSensorPosition.x, vehiculeSensorPosition.y); //translation pour les test
+    translate(sensorOffsetPosition.x, sensorOffsetPosition.y);
+    //translate(vehiculeSensorPosition.x, vehiculeSensorPosition.y); //translation pour les test
     rectMode(CENTER); //positionement par le centre
     rect(0, 0, sensorWidth, sensorHeight);
     popMatrix();

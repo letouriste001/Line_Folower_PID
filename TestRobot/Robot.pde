@@ -5,30 +5,66 @@
 //changement a venir suite a reflexion
 class Robot {
 
-  PVector Position;
-  Sensor capteur;
-  ArrayList<PVector> tmpSensorsPosition;
-  ArrayList<Sensor> Capteurs;
-  
-  Robot(PVector offsetPosition, PImage path, int sensorNumber, int sensorSensorRange, int sensorRobotRange, int sWidth, int sHeight) {
+  //Variables
 
-    Position = offsetPosition;
-    tmpSensorsPosition = sensorsPosition(sensorNumber, sensorSensorRange, sensorRobotRange);
-    Capteurs = new ArrayList();
-    //Boucle for pour le nombre de capteur
-    for (int i=0; i < sensorNumber; i++) {
-      Capteurs.add(new Sensor(path, tmpSensorsPosition.get(i), sWidth, sHeight ));
-    }
+  PVector robotPosition;
+  PVector sensorPosition;
+  ArrayList<Sensor> sensors; // en prevision de la creation d'un robot multi-capteur;
+  float proportional = 0;
+  float integral = 0;
+  float derivative = 0;
+  float kProportional;
+  float kIntegral;
+  float kDerivative;
+  float errorPrev = 0;
+  float setpoit;
+
+  //Constructeur
+
+  Robot(float kP, float kI, float kD, PImage path, PVector offsetPosition, PVector offestSensorPosition, int sWidth, int sHeight ) {
+
+    //il doit manquer des choses !!
+    robotPosition = offsetPosition;
+    sensors = new ArrayList<Sensor>();
+    sensors.add(new Sensor(path, offestSensorPosition, sWidth, sHeight));
+    kProportional = kP;
+    kIntegral = kI;
+    kDerivative = kD;
   }
 
+  //Mehtodes
+  float ControllerPID () {
+
+    //variable
+    Sensor tmpSensor;
+    float controller;
+
+    //instruction
+    tmpSensor = sensors.get(0);
+    proportional = setpoit - tmpSensor.readValue(sensorPosition);
+    integral += proportional;
+    derivative = proportional - errorPrev;
+    controller = (kProportional * proportional)+(kIntegral * integral)+(kDerivative * derivative);
+    return controller;
+  }
+  void run(){
+    
+    //equation du mouvement en fonction de la valeur du capteur
+  }
+  
   void robotRender(PVector vehiculeSensorPosition, float theta) {
+
+    Sensor tmpSensor;
+    tmpSensor = sensors.get(0);
 
     /*Probleme de deplacement pour la rotation suivi de la translation*/
     fill(175);
     stroke(0);
     pushMatrix();
-    rotate(theta); // probleme de deplacement a la rotation
+    tmpSensor.sensorRender();
     translate(vehiculeSensorPosition.x, vehiculeSensorPosition.y);
+    rotate(theta); // probleme de deplacement a la rotation
+    //translate(vehiculeSensorPosition.x, vehiculeSensorPosition.y);
     rectMode(CENTER); //ne marche pas ??
     beginShape(TRIANGLES);
     vertex(0, -4*2);
@@ -36,46 +72,5 @@ class Robot {
     vertex(4, 4*2);
     endShape();
     popMatrix();
-  }
-
-  //Reserver a la classe Robot methode pour calculer la position des capteurs.
-  private ArrayList<PVector> sensorsPosition(int sensorNumber, int sensorSensorRange, int sensorRobotRange) {
-
-    ArrayList<PVector> tmpSensorsPosition;
-
-    //creation de la liste
-
-    tmpSensorsPosition = new ArrayList<PVector>();
-
-    if (sensorNumber == 1) {
-      tmpSensorsPosition.add(new PVector(sensorSensorRange, sensorRobotRange));
-    } else if (sensorNumber == 2) {
-      tmpSensorsPosition.add(new PVector((-sensorSensorRange/2), sensorRobotRange));
-      tmpSensorsPosition.add(new PVector((sensorSensorRange/2), sensorRobotRange));
-    } else if (sensorNumber == 3) {
-      tmpSensorsPosition.add(new PVector((-sensorSensorRange/2), sensorRobotRange));
-      tmpSensorsPosition.add(new PVector((0), sensorRobotRange));
-      tmpSensorsPosition.add(new PVector((sensorSensorRange/2), sensorRobotRange));
-    }
-    return tmpSensorsPosition;
-  }
-  private float proportionalIntegralDerivativeController(float setpoint, float measuredValue){
-    
-    //variable
-    float tmpProportional = 0;
-    float tmpIntegral = 0;
-    float tmpDerivative = 0;
-    float tmpErrorPrev = 0;
-    float tmpController =0;
-    float kProportional=1;
-    float kIntegral=1;
-    float kDerivative=1;
-    
-    tmpProportional = setpoint - measuredValue;
-    tmpIntegral += tmpProportional;
-    tmpDerivative = tmpProportional - tmpErrorPrev;
-    tmpController = (kProportional*tmpProportional)+(kIntegral*tmpIntegral)+(kDerivative*tmpDerivative);
-    tmpErrorPrev= tmpProportional;
-       
   }
 }
