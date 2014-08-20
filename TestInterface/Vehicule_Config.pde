@@ -5,31 +5,38 @@ import javax.swing.*;
 class Parametre extends JFrame {
 
   JFrame fenetre;
-  JPanel jpChoixRobot, jpRobot, jpParametres, jpResolutionCapteur, jpPID, 
-  jpPosition, jpButton, jpContentPanel, jpContentCenter, jpDistanceDx, jpDistanceDy, jpVitesse, jpFacteurKp, jpFacteurKi, 
-  jpFacteurKd, jpImageRobot, jpImagePID, jpRobotCenterPanel;
-  JLabel jlChoixRobot, jlDistanceDx, jlDistanceDy, jlVitesse, jlRayon, jlFacteurKp, jlFacteurKi, jlFacteurKd, jlImageRobot, jlImagePID;
+  JPanel jpChoixRobot, jpRobot, jpParametres, jpResolutionCapteur, jpPID,
+      jpFacteur, jpPosition, jpButton, jpContentPanel, jpCenter,
+      jpDistanceDx, jpDistanceDy, jpVitesse, jpFacteurKp, jpFacteurKi,
+      jpFacteurKd, jpImageRobot, jpImagePID, jpRobotCenterPanel;
+  JLabel jlChoixRobot, jlDistanceDx, jlDistanceDy, jlVitesse, jlRayon,
+      jlFacteurKp, jlFacteurKi, jlFacteurKd, jlImageRobot, jlImagePID;
   JComboBox<String> jcbChoixRobot;
   JButton jbValider, jbStart, jbStop, jbReset;
-  JTextField jtfDistanceDx, jtfDistanceDy, jtfVitesse, jtfRayon, jtfFacteurKp, jtfFacteurKi, jtfFacteurKd;
-  JRadioButton jrbPositionOne, jrbPositionTwo, jrbPositionThree, jrbPositionFour, jrbPositionFive;
-  ImageIcon iiImageRobot, iiRobotOneSensor, iiRobotTwoSensor, iiPID;
+  JTextField jtfDistanceDx, jtfDistanceDy, jtfVitesse, jtfRayon,
+      jtfFacteurKp, jtfFacteurKi, jtfFacteurKd;
+  JRadioButton jrbPositionOne, jrbPositionTwo, jrbPositionThree,
+      jrbPositionFour, jrbPositionFive;
+  ImageIcon iiImageRobot, iiRobotOneSensor, iiRobotTwoSensor, iiImagePID,
+      iiPositionOne, iiPositionTwo, iiPositionThree, iiPositionFour,
+      iiPositionFive;
+  ButtonGroup bgPosition;
 
   Parametre() {
     fenetre = new JFrame();
     fenetre.setTitle("Paramètres de la simulation");
-    fenetre.setSize(400, 600);
-    fenetre.setVisible(true);
+    fenetre.setSize(600, 600);
     fenetre.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     initWindows();
+    fenetre.setVisible(true);
   }
 
   void initChoix() {
 
     // JPanel Contient le text 'Choix du Robot' et de la liste deroulante
-    jpRobot = new JPanel();
-    jpRobot.setBackground(Color.white);
-    jpRobot.setBorder(BorderFactory.createTitledBorder("Choix"));
+    jpChoixRobot = new JPanel();
+    jpChoixRobot.setBackground(Color.white);
+    jpChoixRobot.setBorder(BorderFactory.createTitledBorder("Choix"));
 
     // JLabel text
     jlChoixRobot = new JLabel("Choix du Robot");
@@ -41,8 +48,8 @@ class Parametre extends JFrame {
     jcbChoixRobot.setSelectedIndex(1);
 
     // ajout des objet dans le JPanel
-    jpRobot.add(jlChoixRobot);
-    jpRobot.add(jcbChoixRobot);
+    jpChoixRobot.add(jlChoixRobot);
+    jpChoixRobot.add(jcbChoixRobot);
   }
 
   void initParametre() {
@@ -90,7 +97,8 @@ class Parametre extends JFrame {
     // JPanel Resolution Capteur
     jpResolutionCapteur = new JPanel();
     jpResolutionCapteur.setBackground(Color.white);
-    jpResolutionCapteur.setBorder(BorderFactory.createTitledBorder("Résolution du Capteur"));
+    jpResolutionCapteur.setBorder(BorderFactory
+        .createTitledBorder("Résolution du Capteur"));
 
     // Jlabel Text Resolution Capteur
     jlRayon = new JLabel("Rayon");
@@ -141,21 +149,151 @@ class Parametre extends JFrame {
     jpRobot.add(jpRobotCenterPanel, BorderLayout.CENTER);
   }
 
+  void initCorrection() {
 
+    // JPanel Correction
+    jpFacteur = new JPanel();
+    jpFacteur.setBackground(Color.white);
+    jpFacteur.setBorder(BorderFactory
+        .createTitledBorder("Facteur de Correction"));
+    jpFacteur.setLayout(new GridLayout(3, 1));
 
+    // JPanel des differentes cases
+    jpFacteurKp = new JPanel();
+    jpFacteurKp.setBackground(Color.white);
+    jpFacteurKi = new JPanel();
+    jpFacteurKi.setBackground(Color.white);
+    jpFacteurKd = new JPanel();
+    jpFacteurKd.setBackground(Color.white);
 
+    // Jlabel Text Prametres
+    jlFacteurKp = new JLabel("Facteur kp");
+    jlFacteurKi = new JLabel("Facteur ki");
+    jlFacteurKd = new JLabel("Facteur kd");
 
+    // JTextField Parametres
+    jtfFacteurKp = new JTextField();
+    jtfFacteurKi = new JTextField();
+    jtfFacteurKd = new JTextField();
 
+    // ajout des objets dans les different JPanel qui represente les cases
+    jpFacteurKp.add(jlFacteurKp);
+    jpFacteurKp.add(jtfFacteurKp);
+    jpFacteurKi.add(jlFacteurKi);
+    jpFacteurKi.add(jtfFacteurKi);
+    jpFacteurKd.add(jlFacteurKd);
+    jpFacteurKd.add(jtfFacteurKd);
 
+    // ajout des objets dans les cases du GridLayout
+    jpFacteur.add(jpFacteurKp);
+    jpFacteur.add(jpFacteurKi);
+    jpFacteur.add(jpFacteurKd);
+  }
 
+  void initImagePID() {
 
+    // Image PID
+    iiImagePID = new ImageIcon("images/TableauPID.jpg");
 
+    jlImagePID = new JLabel(iiImagePID);
 
+    jpImagePID = new JPanel();
+    jpImagePID.setBackground(Color.white);
+    jpImagePID.setLayout(new BorderLayout());
+    jpImagePID.add(jlImagePID);
+  }
 
+  void initPID() {
 
+    jpPID = new JPanel();
+    jpPID.setBackground(Color.white);
+    jpPID.setBorder(BorderFactory.createTitledBorder("Robot"));
+    jpPID.setLayout(new BorderLayout());
 
+    initCorrection();
+    initImagePID();
+
+    jpPID.add(jpImagePID, BorderLayout.WEST);
+    jpPID.add(jpFacteur, BorderLayout.CENTER);
+  }
+
+  void initPosition() {
+
+    jpPosition = new JPanel();
+    jpPosition.setBackground(Color.white);
+    jpPosition.setBorder(BorderFactory.createTitledBorder("Position"));
+    
+    iiPositionOne = new ImageIcon("images/Position1.png");
+    iiPositionTwo = new ImageIcon("images/Position2.png");
+    iiPositionThree = new ImageIcon("images/Position3.png");
+    iiPositionFour = new ImageIcon("images/Position4.png");
+    iiPositionFive = new ImageIcon("images/Position5.png");
+    
+    jrbPositionOne = new JRadioButton(iiPositionOne,true);
+    jrbPositionTwo = new JRadioButton(iiPositionTwo);
+    jrbPositionThree = new JRadioButton(iiPositionThree);
+    jrbPositionFour = new JRadioButton(iiPositionFour);
+    jrbPositionFive = new JRadioButton(iiPositionFive);
+    
+    bgPosition = new ButtonGroup();
+    bgPosition.add(jrbPositionOne);
+    bgPosition.add(jrbPositionTwo);
+    bgPosition.add(jrbPositionThree);
+    bgPosition.add(jrbPositionFour);
+    bgPosition.add(jrbPositionFive);
+    
+    jpPosition.add(jrbPositionOne);
+    jpPosition.add(jrbPositionTwo);
+    jpPosition.add(jrbPositionThree);
+    jpPosition.add(jrbPositionFour);
+    jpPosition.add(jrbPositionFive);
+  }
+
+  void initCenter(){
+    
+    jpCenter = new JPanel();
+    jpCenter.setBackground(Color.white);
+    jpCenter.setLayout(new BorderLayout());
+    
+    initRobot();
+    initPID();
+    initPosition();
+    
+    jpCenter.add(jpRobot,BorderLayout.NORTH);
+    jpCenter.add(jpPID,BorderLayout.CENTER);
+    jpCenter.add(jpPosition,BorderLayout.SOUTH);
+  }
+  void initButton(){
+    
+    jpButton = new JPanel();
+    jpButton.setBackground(Color.white);
+    jpButton.setBorder(BorderFactory.createTitledBorder("Control"));
+    
+    jbValider = new JButton("Valider");
+    jbReset = new JButton("Reset");
+    jbStart = new JButton("Start");
+    jbStop = new JButton("Stop");
+    
+    jpButton.add(jbValider);
+    jpButton.add(jbReset);
+    jpButton.add(jbStart);
+    jpButton.add(jbStop);
+  }
+  
   void initWindows() {
-
+    
+    jpContentPanel = new JPanel();
+    jpContentPanel.setBackground(Color.white);
+    jpContentPanel.setLayout(new BorderLayout());
+    
     initChoix();
+    initCenter();
+    initButton();
+    
+    jpContentPanel.add(jpChoixRobot,BorderLayout.NORTH);
+    jpContentPanel.add(jpCenter,BorderLayout.CENTER);
+    jpContentPanel.add(jpButton,BorderLayout.SOUTH);
+    
+    fenetre.setContentPane(jpContentPanel);
   }
 }
