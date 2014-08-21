@@ -5,21 +5,14 @@ import javax.swing.*;
 class Parametre extends JFrame {
 
   JFrame fenetre;
-  JPanel jpChoixRobot, jpRobot, jpParametres, jpResolutionCapteur, jpPID,
-      jpFacteur, jpPosition, jpButton, jpContentPanel, jpCenter,
-      jpDistanceDx, jpDistanceDy, jpVitesse, jpFacteurKp, jpFacteurKi,
-      jpFacteurKd, jpImageRobot, jpImagePID, jpRobotCenterPanel;
-  JLabel jlChoixRobot, jlDistanceDx, jlDistanceDy, jlVitesse, jlRayon,
-      jlFacteurKp, jlFacteurKi, jlFacteurKd, jlImageRobot, jlImagePID;
+  JPanel jpChoixRobot, jpRobot, jpParametres, jpResolutionCapteur, jpPID, jpFacteur, jpPosition, jpButton, jpContentPanel, jpCenter, 
+  jpDistanceDx, jpDistanceDy, jpVitesse, jpFacteurKp, jpFacteurKi, jpFacteurKd, jpImageRobot, jpImagePID, jpRobotCenterPanel;
+  JLabel jlChoixRobot, jlDistanceDx, jlDistanceDy, jlVitesse, jlRayon, jlFacteurKp, jlFacteurKi, jlFacteurKd, jlImageRobot, jlImagePID;
   JComboBox<String> jcbChoixRobot;
   JButton jbValider, jbStart, jbStop, jbReset;
-  JTextField jtfDistanceDx, jtfDistanceDy, jtfVitesse, jtfRayon,
-      jtfFacteurKp, jtfFacteurKi, jtfFacteurKd;
-  JRadioButton jrbPositionOne, jrbPositionTwo, jrbPositionThree,
-      jrbPositionFour, jrbPositionFive;
-  ImageIcon iiImageRobot, iiRobotOneSensor, iiRobotTwoSensor, iiImagePID,
-      iiPositionOne, iiPositionTwo, iiPositionThree, iiPositionFour,
-      iiPositionFive;
+  JTextField jtfDistanceDx, jtfDistanceDy, jtfVitesse, jtfRayon, jtfFacteurKp, jtfFacteurKi, jtfFacteurKd;
+  JRadioButton jrbPositionOne, jrbPositionTwo, jrbPositionThree, jrbPositionFour, jrbPositionFive;
+  ImageIcon iiImageRobot, iiRobotOneSensor, iiRobotTwoSensor, iiImagePID, iiPositionOne, iiPositionTwo, iiPositionThree, iiPositionFour, iiPositionFive;
   ButtonGroup bgPosition;
 
   Parametre() {
@@ -97,8 +90,7 @@ class Parametre extends JFrame {
     // JPanel Resolution Capteur
     jpResolutionCapteur = new JPanel();
     jpResolutionCapteur.setBackground(Color.white);
-    jpResolutionCapteur.setBorder(BorderFactory
-        .createTitledBorder("Résolution du Capteur"));
+    jpResolutionCapteur.setBorder(BorderFactory.createTitledBorder("Résolution du Capteur"));
 
     // Jlabel Text Resolution Capteur
     jlRayon = new JLabel("Rayon");
@@ -114,8 +106,8 @@ class Parametre extends JFrame {
   void initImageRobot() {
 
     // Image Robot
-    iiRobotOneSensor = new ImageIcon("images/RobotOneSensor.png");
-    iiRobotTwoSensor = new ImageIcon("images/RobotTwoSensor.png");
+    iiRobotOneSensor = new ImageIcon(dataPath("images/RobotOneSensor.png"));
+    iiRobotTwoSensor = new ImageIcon(dataPath("images/RobotTwoSensor.png"));
     iiImageRobot = iiRobotOneSensor; // image par defaut
 
     jlImageRobot = new JLabel(iiImageRobot);
@@ -154,8 +146,7 @@ class Parametre extends JFrame {
     // JPanel Correction
     jpFacteur = new JPanel();
     jpFacteur.setBackground(Color.white);
-    jpFacteur.setBorder(BorderFactory
-        .createTitledBorder("Facteur de Correction"));
+    jpFacteur.setBorder(BorderFactory.createTitledBorder("Facteur de Correction"));
     jpFacteur.setLayout(new GridLayout(3, 1));
 
     // JPanel des differentes cases
@@ -193,7 +184,7 @@ class Parametre extends JFrame {
   void initImagePID() {
 
     // Image PID
-    iiImagePID = new ImageIcon("images/TableauPID.jpg");
+    iiImagePID = new ImageIcon(dataPath("images/TableauPID.jpg"));
 
     jlImagePID = new JLabel(iiImagePID);
 
@@ -222,26 +213,26 @@ class Parametre extends JFrame {
     jpPosition = new JPanel();
     jpPosition.setBackground(Color.white);
     jpPosition.setBorder(BorderFactory.createTitledBorder("Position"));
-    
-    iiPositionOne = new ImageIcon("images/Position1.png");
-    iiPositionTwo = new ImageIcon("images/Position2.png");
-    iiPositionThree = new ImageIcon("images/Position3.png");
-    iiPositionFour = new ImageIcon("images/Position4.png");
-    iiPositionFive = new ImageIcon("images/Position5.png");
-    
-    jrbPositionOne = new JRadioButton(iiPositionOne,true);
-    jrbPositionTwo = new JRadioButton(iiPositionTwo);
-    jrbPositionThree = new JRadioButton(iiPositionThree);
-    jrbPositionFour = new JRadioButton(iiPositionFour);
-    jrbPositionFive = new JRadioButton(iiPositionFive);
-    
+
+    iiPositionOne = new ImageIcon(dataPath("images/Position1.png"));
+    iiPositionTwo = new ImageIcon(dataPath("images/Position2.png"));
+    iiPositionThree = new ImageIcon(dataPath("images/Position3.png"));
+    iiPositionFour = new ImageIcon(dataPath("images/Position4.png"));
+    iiPositionFive = new ImageIcon(dataPath("images/Position5.png"));
+
+    jrbPositionOne = new JRadioButton("toto",iiPositionOne, true);
+    jrbPositionTwo = new JRadioButton("titi",iiPositionTwo);
+    jrbPositionThree = new JRadioButton("",iiPositionThree);
+    jrbPositionFour = new JRadioButton("",iiPositionFour);
+    jrbPositionFive = new JRadioButton("",iiPositionFive);
+
     bgPosition = new ButtonGroup();
     bgPosition.add(jrbPositionOne);
     bgPosition.add(jrbPositionTwo);
     bgPosition.add(jrbPositionThree);
     bgPosition.add(jrbPositionFour);
     bgPosition.add(jrbPositionFive);
-    
+
     jpPosition.add(jrbPositionOne);
     jpPosition.add(jrbPositionTwo);
     jpPosition.add(jrbPositionThree);
@@ -249,51 +240,51 @@ class Parametre extends JFrame {
     jpPosition.add(jrbPositionFive);
   }
 
-  void initCenter(){
-    
+  void initCenter() {
+
     jpCenter = new JPanel();
     jpCenter.setBackground(Color.white);
     jpCenter.setLayout(new BorderLayout());
-    
+
     initRobot();
     initPID();
     initPosition();
-    
-    jpCenter.add(jpRobot,BorderLayout.NORTH);
-    jpCenter.add(jpPID,BorderLayout.CENTER);
-    jpCenter.add(jpPosition,BorderLayout.SOUTH);
+
+    jpCenter.add(jpRobot, BorderLayout.NORTH);
+    jpCenter.add(jpPID, BorderLayout.CENTER);
+    jpCenter.add(jpPosition, BorderLayout.SOUTH);
   }
-  void initButton(){
-    
+  void initButton() {
+
     jpButton = new JPanel();
     jpButton.setBackground(Color.white);
     jpButton.setBorder(BorderFactory.createTitledBorder("Control"));
-    
+
     jbValider = new JButton("Valider");
     jbReset = new JButton("Reset");
     jbStart = new JButton("Start");
     jbStop = new JButton("Stop");
-    
+
     jpButton.add(jbValider);
     jpButton.add(jbReset);
     jpButton.add(jbStart);
     jpButton.add(jbStop);
   }
-  
+
   void initWindows() {
-    
+
     jpContentPanel = new JPanel();
     jpContentPanel.setBackground(Color.white);
     jpContentPanel.setLayout(new BorderLayout());
-    
+
     initChoix();
     initCenter();
     initButton();
-    
-    jpContentPanel.add(jpChoixRobot,BorderLayout.NORTH);
-    jpContentPanel.add(jpCenter,BorderLayout.CENTER);
-    jpContentPanel.add(jpButton,BorderLayout.SOUTH);
-    
+
+    jpContentPanel.add(jpChoixRobot, BorderLayout.NORTH);
+    jpContentPanel.add(jpCenter, BorderLayout.CENTER);
+    jpContentPanel.add(jpButton, BorderLayout.SOUTH);
+
     fenetre.setContentPane(jpContentPanel);
   }
 }
