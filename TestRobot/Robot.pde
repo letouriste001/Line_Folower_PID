@@ -33,6 +33,7 @@ class Robot implements Drawable {
     this();
     this.robotPosition = offsetPosition;
     this.sensors = new ArrayList<Sensor>();
+    this.sensorPosition = new PVector (100, 100);
     this.sensors.add(new Sensor(path, offestSensorPosition, sWidth, sHeight));
     this.kProportional = kP;
     this.kIntegral = kI;
@@ -49,6 +50,7 @@ class Robot implements Drawable {
 
     //instruction
     tmpSensor = sensors.get(0);
+    println("la valeur lu par le capteur"+ tmpSensor.readValue(sensorPosition));
     this.proportional = setpoit - tmpSensor.readValue(sensorPosition);
     this.integral += this.proportional;
     this.derivative = this.proportional - errorPrev;
@@ -62,9 +64,9 @@ class Robot implements Drawable {
 
     println("la position x est :" + this.robotPosition.x );
     println("la position y est :" + this.robotPosition.y );
+    PIDToHeading();
     this.robotPosition.x += cos(this.heading) * this.velocity / dt;
     this.robotPosition.y += sin(this.heading) * this.velocity / dt;
-    
   }
 
   public  void draw() {
