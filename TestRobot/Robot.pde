@@ -3,6 +3,11 @@
 // @description : Virtual line folower for simulation of line folower
 
 //changement a venir suite a reflexion
+
+/* a faire */
+
+/* faire une fonction qui calcule la position du capteur par rapport au robot */
+
 class Robot implements Drawable {
 
   //Variables
