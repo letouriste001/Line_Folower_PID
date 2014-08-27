@@ -54,11 +54,13 @@ class Sensor implements Drawable {
   //void sensorRender(){
   //void sensorRender(PVector vehiculeSensorPosition) { //pour tester le capteur
   public void draw() {
+    println("la position sensor x est :" + this.sensorOffsetPosition.x );
+    println("la position sensor y est :" + this.sensorOffsetPosition.y );
+    pushMatrix();
+    translate(this.sensorOffsetPosition.x, this.sensorOffsetPosition.y);
+    //translate(vehiculeSensorPosition.x, vehiculeSensorPosition.y); //translation pour les test
     fill(RED);
     stroke(0);
-    pushMatrix();
-    translate(sensorOffsetPosition.x, sensorOffsetPosition.y);
-    //translate(vehiculeSensorPosition.x, vehiculeSensorPosition.y); //translation pour les test
     rectMode(CENTER); //positionement par le centre
     rect(0, 0, sensorWidth, sensorHeight);
     popMatrix();

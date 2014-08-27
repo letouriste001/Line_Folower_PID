@@ -28,7 +28,7 @@ void setup() {
   smooth();
   offset = new PVector(100, 100);
   tmpPosition = new PVector(100, 100);
-  offsetSensor = new PVector(110, 100);
+  offsetSensor = new PVector(0, -30);
   newRobot();
 }
 
@@ -46,9 +46,9 @@ void draw() {
 
 void keyPressed() {
   switch(key) {
-    //case 'q': userChoice += 1.0; break;
+    case 'a': suiveur.heading += 1.0 * (PI/25) / frameRate; break;
     //case 'w': userChoice = 0.0; break;
-    //case 'e': userChoice += -1.0; break;
+    case 'e': suiveur.heading += -1.0 * (PI/25) / frameRate; break;
     case ' ': paused = !paused;
   }
 }

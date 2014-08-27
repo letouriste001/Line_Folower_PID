@@ -20,7 +20,7 @@ class Robot implements Drawable {
   public float setpoit;
   public float heading =0;
   public float velocity = 2.0 / frameRate;
-  public float dt = 1;
+  public float dt = frameRate;
 
   //Constructeur
 
@@ -60,8 +60,11 @@ class Robot implements Drawable {
 
   public void updatePosition() {
 
+    println("la position x est :" + this.robotPosition.x );
+    println("la position y est :" + this.robotPosition.y );
     this.robotPosition.x += cos(this.heading) * this.velocity / dt;
     this.robotPosition.y += sin(this.heading) * this.velocity / dt;
+    
   }
 
   public  void draw() {
