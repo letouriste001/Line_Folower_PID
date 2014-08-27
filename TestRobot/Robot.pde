@@ -19,9 +19,9 @@ class Robot implements Drawable {
   public float errorPrev = 0;
   public float setpoit;
   public float heading =0;
-  public float velocity =0;
+  public float velocity = 2.0 / frameRate;
   public float dt = 1;
-  
+
   //Constructeur
 
   public Robot() {
@@ -59,22 +59,29 @@ class Robot implements Drawable {
 
 
   public void updatePosition() {
-    
+
     this.robotPosition.x += cos(this.heading) * this.velocity / dt;
     this.robotPosition.y += sin(this.heading) * this.velocity / dt;
   }
 
   public  void draw() {
 
+    pushMatrix();
+    translate(this.robotPosition.x, this.robotPosition.y);
+    rotate(this.heading);
+
     fill(175);
     stroke(0);
-    pushMatrix();
-    rectMode(CENTER); //ne marche pas ??
     beginShape(TRIANGLES);
     vertex(0, -4*2);
     vertex(-4, 4*2);
     vertex(4, 4*2);
     endShape();
+
+    for (Sensor sensor : this.sensors) {
+      sensor.draw();
+    }
+
     popMatrix();
   }
 }
