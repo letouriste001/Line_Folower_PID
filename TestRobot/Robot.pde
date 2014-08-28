@@ -18,14 +18,14 @@ class Robot implements Drawable {
   public float proportional = 0;
   public float integral = 0;
   public float derivative = 0;
-  public float kProportional;
-  public  float kIntegral;
-  public float kDerivative;
+  public float kProportional = 0.1;//fixer pour les tests
+  public  float kIntegral = 0.1;//fixer pour les tests
+  public float kDerivative = 0.1;//fixer pour les tests
   public float errorPrev = 0;
-  public float setpoit;
+  public float setpoit = 0.5;//fixer pour les tests
   public float heading =0;
-  public float velocity = 2.0 / frameRate;
-  public float dt = frameRate;
+  public float velocity = 20.0 / frameRate;//fixer pour les tests
+  public float dt = frameRate;//fixer pour les tests
 
   //Constructeur
 
@@ -38,7 +38,7 @@ class Robot implements Drawable {
     this();
     this.robotPosition = offsetPosition;
     this.sensors = new ArrayList<Sensor>();
-    this.sensorPosition = new PVector (100, 100);
+    this.sensorPosition = new PVector (229, 292);
     this.sensors.add(new Sensor(path, offestSensorPosition, sWidth, sHeight));
     this.kProportional = kP;
     this.kIntegral = kI;
@@ -55,23 +55,26 @@ class Robot implements Drawable {
 
     //instruction
     tmpSensor = sensors.get(0);
-    println("la valeur lu par le capteur"+ tmpSensor.readValue(sensorPosition));
-    this.proportional = setpoit - tmpSensor.readValue(sensorPosition);
+    println("la valeur lu par le capteur"+ tmpSensor.readValue(robotPosition));
+    this.proportional = setpoit - tmpSensor.readValue(robotPosition);
     this.integral += this.proportional;
     this.derivative = this.proportional - errorPrev;
     controller = (this.kProportional * this.proportional)+(this.kIntegral * this.integral)+(this.kDerivative * this.derivative);
-    //Transformation de la valeur du PID en un angle [ f(0) = -90; f(50)= 0; f(100)=+90 ]
-    this.heading = (QUARTER_PI/25)*controller-HALF_PI;
+    println("controller :" + controller );
+    //Transformation de la valeur du PID en un angle [ f(-50) = -PI/2; f(0)= 0; f(50)= PI/2 ]
+    println("angles :" + this.heading );
+    this.heading = (QUARTER_PI/25)*controller; //-HALF_PI;
   }
 
 
   public void updatePosition() {
 
-    println("la position x est :" + this.robotPosition.x );
-    println("la position y est :" + this.robotPosition.y );
+    //println("la position x est :" + this.robotPosition.x );
+    //println("la position y est :" + this.robotPosition.y );
     PIDToHeading();
     this.robotPosition.x += cos(this.heading) * this.velocity / dt;
     this.robotPosition.y += sin(this.heading) * this.velocity / dt;
+    println("x : " + this.robotPosition.x + " y : " + this.robotPosition.y);
   }
 
   public  void draw() {

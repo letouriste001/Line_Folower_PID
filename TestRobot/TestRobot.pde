@@ -9,27 +9,16 @@ Float angle = 0.0;
 PImage myImage;
 
 void setup() {
-  size(500, 500);
-  myImage = createImage(500, 500, RGB);
-  // dessin initial
-  background(255);
-  fill(255, 0, 0);
-  ellipse(100, 100, 200, 200);
+  size(800, 600);
 
-  // on récupère les pixels  
-  loadPixels();
-  myImage.loadPixels();
-
-  // on recopie
-  for (int i = 0; i < width*height; i++) {
-    myImage.pixels[i] = pixels[i];
-  }
-  myImage.updatePixels();
   smooth();
-  offset = new PVector(100, 100);
+  offset = new PVector(229, 292);
   tmpPosition = new PVector(100, 100);
   offsetSensor = new PVector(0, -30);
+  myImage = loadImage("test.png");
   newRobot();
+  image(myImage, 0, 0);
+  
 }
 
 void newRobot() {
@@ -39,9 +28,11 @@ void newRobot() {
 void draw() {
   if (!paused) {
     suiveur.updatePosition();
+    imageDisplay();
   }
-  background(255);
+  //background(255);
   suiveur.draw();
+  //imageDisplay();
 }
 
 void keyPressed() {
@@ -51,4 +42,7 @@ void keyPressed() {
     case 'e': suiveur.heading += -1.0 * (PI/25) / frameRate; break;
     case ' ': paused = !paused;
   }
+}
+void imageDisplay() {
+  image(myImage, 0, 0);
 }

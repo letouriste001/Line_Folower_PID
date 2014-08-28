@@ -42,6 +42,7 @@ class Sensor implements Drawable {
     //lecture du capteur
     for (int i = 0; i < this.sensorHeight; i++) {
       for (int j = 0; j < this.sensorWidth; j++) {
+        //println("index : " + tmpIndex );
         tmpIndex = (int(vehiculeSensorPosition.x)- tmpWidth + j) + ((int(vehiculeSensorPosition.y)- tmpHeight + i)* this.sensorPath.width); //Premier pixel du capteur sur le circuit.
         tmpColor = this.sensorPath.pixels[tmpIndex]; //on recupere la valeur du pixel
         sumColors += (blue(tmpColor) + red(tmpColor) + green(tmpColor)) / (255 * 3.0);
