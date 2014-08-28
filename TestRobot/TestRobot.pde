@@ -9,20 +9,19 @@ Float angle = 0.0;
 PImage myImage;
 
 void setup() {
-  size(800, 600);
+  size(600, 800);
 
   smooth();
-  offset = new PVector(229, 292);
+  offset = new PVector(286, 485);
   tmpPosition = new PVector(100, 100);
   offsetSensor = new PVector(0, -30);
   myImage = loadImage("test.png");
   newRobot();
   image(myImage, 0, 0);
-  
 }
 
 void newRobot() {
-  suiveur = new Robot(10, 10, 10, myImage, offset, offsetSensor, 10, 2);
+  suiveur = new Robot(10, 10, 10, myImage, offset, 1, 0, -40, 10, 2);
 }
 
 void draw() {
@@ -37,10 +36,15 @@ void draw() {
 
 void keyPressed() {
   switch(key) {
-    case 'a': suiveur.heading += 1.0 * (PI/25) / frameRate; break;
+  case 'a': 
+    suiveur.heading += 1.0 * (PI/25) / frameRate; 
+    break;
     //case 'w': userChoice = 0.0; break;
-    case 'e': suiveur.heading += -1.0 * (PI/25) / frameRate; break;
-    case ' ': paused = !paused;
+  case 'e': 
+    suiveur.heading += -1.0 * (PI/25) / frameRate; 
+    break;
+  case ' ': 
+    paused = !paused;
   }
 }
 void imageDisplay() {
